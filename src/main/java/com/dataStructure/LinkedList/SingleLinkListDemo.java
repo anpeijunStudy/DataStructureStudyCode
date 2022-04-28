@@ -277,6 +277,11 @@ class SingleLikedListNode {
      * 可以利用栈这个数据结构，将各个节点压入到栈中，然后利用栈的先进后出的特点，就实现了逆序打印的特点
      */
     public void reversalPrintNode() {
+        if (headNode.getNext()==null){
+            return;
+        }
+
+        // 创建一个栈-压入栈
     }
 
 
