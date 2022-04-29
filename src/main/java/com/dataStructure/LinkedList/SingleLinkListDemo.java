@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Stack;
+
 /**
  * @author 安珮军
  * @version 1.0
@@ -45,9 +47,16 @@ public class SingleLinkListDemo {
         singLeLInkedList.reversalNode();
 
         // 显示所有节点
+        System.out.println("正序打印");
         singLeLInkedList.showList();
+        System.out.println("-------------------------------------------------");
 
+        // 逆序打印
+        System.out.println("逆序打印");
+        singLeLInkedList.reversalPrintNode();
+        System.out.println("-------------------------------------------------");
         // 计算节点个数
+        System.out.println("计算节点个数");
         System.out.println("节点的个数=" + singLeLInkedList.validNumberNode());
 
     }
@@ -277,11 +286,21 @@ class SingleLikedListNode {
      * 可以利用栈这个数据结构，将各个节点压入到栈中，然后利用栈的先进后出的特点，就实现了逆序打印的特点
      */
     public void reversalPrintNode() {
-        if (headNode.getNext()==null){
+        if (headNode.getNext() == null) {
             return;
         }
 
         // 创建一个栈-压入栈
+        Stack<Node> nodeStack = new Stack<Node>();
+        Node tempNode = headNode.getNext();
+        while (tempNode != null) {
+            nodeStack.push(tempNode);
+            tempNode = tempNode.getNext();
+        }
+        // 出栈-先进后出
+        while (nodeStack.size() > 0) {
+            System.out.println(nodeStack.pop());
+        }
     }
 
 
