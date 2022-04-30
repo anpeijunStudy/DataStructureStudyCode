@@ -31,6 +31,17 @@ public class DoubleLinkListDemo {
         doubleLinkedList.showForWardDoubleList();
         System.out.println("------------------------------------------");
 
+        // 修改
+        System.out.println("修改");
+        DNode updateNode = new DNode(4, "李鬼", "假黑旋风");
+        doubleLinkedList.updateDoubleLinkedList(updateNode);
+        System.out.println("------------------------------------------");
+
+        // 删除
+        System.out.println("删除");
+        doubleLinkedList.deleteDoubleLinkedList(4);
+        System.out.println("------------------------------------------");
+
         // 逆序打印
         System.out.println("逆序打印");
         DNode lastNode = doubleLinkedList.getLastNode();
@@ -102,7 +113,7 @@ class DoubleLinkedList {
         }
 
         // 定义临时节点
-        DNode tempNode = lastNode ;
+        DNode tempNode = lastNode;
         // 遍历
         while (tempNode != null) {
             // 输出
@@ -135,6 +146,71 @@ class DoubleLinkedList {
         tempNode.setNext(node);
         node.setPre(tempNode);
     }
+
+    /**
+     * 修改链表节点
+     */
+    public void updateDoubleLinkedList(DNode node) {
+        // 判断是否为空
+        if (headDoubleNode.getNext() == null) {
+            return;
+        }
+
+        DNode tempNode = headDoubleNode.getNext();
+        boolean flag = false;// 表示是否找到该节点
+
+        while (tempNode != null) {
+            // 找见节点-退出
+            if (tempNode.getId() == node.getId()) {
+                flag = true;
+                break;
+            }
+            tempNode = tempNode.getNext();// 找不见后移
+        }
+        // 找到修改
+        if (flag == true) {
+            tempNode.setName(node.getName());
+            tempNode.setNickname(node.getNickname());
+            System.out.println("修改成功");
+        } else {
+            System.out.println("修改失败");
+        }
+
+    }
+
+    /**
+     * 删除链表节点
+     */
+    public void deleteDoubleLinkedList(Integer id) {
+        DNode tempNode = headDoubleNode.getNext();
+        boolean flag = false;
+        boolean lastFlag = false;
+        // 遍历查找
+        while (tempNode != null) {
+            if (tempNode.getId() == id) {// 找到退出
+                flag = true;
+                break;
+            }
+            tempNode = tempNode.getNext();
+            if (tempNode.getNext() == null) {// 最后一个节点
+                lastFlag = true;
+            }
+        }
+        System.out.println(tempNode);
+        // 删除
+        if (flag == true) {
+            if (lastFlag == true) {
+                tempNode.getPre().setNext(null);
+                System.out.println("删除成功");
+            } else {
+                tempNode.getPre().setNext(tempNode.getNext());
+                tempNode.getNext().setPre(tempNode.getPre());
+                System.out.println("删除成功");
+            }
+        } else {
+            System.out.println("删除失败");
+        }
+    }
 }
 
 /**
@@ -156,15 +232,6 @@ class DNode {
         this.name = name;
         this.nickname = nickname;
     }
-
-//    @Override
-//    public String toString() {
-//        return "DNode{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", nickname='" + nickname + '\'' +
-//                '}';
-//    }
 
     @Override
     public String toString() {
